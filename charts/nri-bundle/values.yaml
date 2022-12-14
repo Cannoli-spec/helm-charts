@@ -44,7 +44,21 @@ newrelic-prometheus-agent:
         - source_labels: [__name__]
           regex: 'coredns_cache.*'
           action: drop
-
+    kubernetes:
+      # NewRelic provides a list of Dashboards, alerts and entities for several Services. The integrations_filter configuration
+      # allows to scrape only the targets having this experience out of the box.
+      # If integrations_filter is enabled, then the jobs scrape merely the targets having one of the specified labels matching
+      # one of the values of app_values.
+      # Under the hood, a relabel_configs with 'action=keep' are generated, consider it in case any custom extra_relabel_config is needed.
+      integrations_filter:
+        # -- enabling the integration filters, merely the targets having one of the specified labels matching
+        #    one of the values of app_values are scraped. Each job configuration can override this default.
+        enabled: true
+        # -- source_labels used to fetch label values in the relabel config added by the integration filters configuration
+        source_labels: ["app.kubernetes.io/name", "app.newrelic.io/name", "k8s-app"]
+        # -- app_values used to create the regex used in the relabel config added by the integration filters configuration.
+        # Note that a single regex will be created from this list, example: '.*(?i)(app1|app2|app3).*'
+        app_values: ["redis", "traefik", "calico", "nginx", "coredns", "kube-dns", "etcd", "cockroachdb"]  
 newrelic-k8s-metrics-adapter:
   # newrelic-k8s-metrics-adapter.enabled -- Install the [`newrelic-k8s-metrics-adapter.` chart](https://github.com/newrelic/newrelic-k8s-metrics-adapter/tree/main/charts/newrelic-k8s-metrics-adapter) (Beta)
   enabled: false
