@@ -42,7 +42,7 @@ newrelic-prometheus-agent:
     newrelic_remote_write:
       extra_write_relabel_configs:
         - source_labels: [__name__]
-          regex: 'coredns_cache.*'
+          regex: 'nginx_ingress_controller_admission.*'
           action: drop
           
 newrelic-k8s-metrics-adapter:
