@@ -21,7 +21,7 @@ nri-kube-events:
 
 newrelic-logging:
   # newrelic-logging.enabled -- Install the [`newrelic-logging` chart](https://github.com/newrelic/helm-charts/tree/master/charts/newrelic-logging)
-  enabled: true
+  enabled: false
 
 newrelic-pixie:
   # newrelic-pixie.enabled -- Install the [`newrelic-pixie`](https://github.com/newrelic/helm-charts/tree/master/charts/newrelic-pixie)
@@ -55,10 +55,10 @@ newrelic-k8s-metrics-adapter:
 # @default -- See [`values.yaml`](values.yaml)
 global:
   # -- The cluster name for the Kubernetes cluster.
-  cluster: ""
+  cluster: instruqt-cluster
 
   # -- The license key for your New Relic Account. This will be preferred configuration option if both `licenseKey` and `customSecret` are specified.
-  licenseKey: ""
+  licenseKey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxNRAL
   # -- The license key for your New Relic Account. This will be preferred configuration option if both `insightsKey` and `customSecret` are specified.
   insightsKey: ""
   # -- Name of the Secret object where the license key is stored
