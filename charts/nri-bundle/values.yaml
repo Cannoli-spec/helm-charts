@@ -44,6 +44,11 @@ newrelic-prometheus-agent:
         - source_labels: [__name__]
           regex: 'nginx_ingress_controller_config.*'
           action: drop
+        - source_labels: [__name__]
+          regex: 'prometheus.*'
+          target_label: env
+          action: replace
+          replacement: prod
           
 newrelic-k8s-metrics-adapter:
   # newrelic-k8s-metrics-adapter.enabled -- Install the [`newrelic-k8s-metrics-adapter.` chart](https://github.com/newrelic/newrelic-k8s-metrics-adapter/tree/main/charts/newrelic-k8s-metrics-adapter) (Beta)
