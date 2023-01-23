@@ -49,6 +49,7 @@ newrelic-prometheus-agent:
 #          target_label: env
 #          action: replace
 #          replacement: prod
+#      extra_metric_relabel_configs:
 #        - source_labels: [__meta_kubernetes_namespace]
 #          regex: nginx-ingress
 #          action: keep
