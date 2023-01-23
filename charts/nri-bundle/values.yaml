@@ -40,6 +40,10 @@ newrelic-prometheus-agent:
   enabled: true
   config:
     newrelic_remote_write:
+      extra_metric_relabel_config:
+        - source_labels: [__meta_kubernetes_namespace]
+          regex: nginx-ingress
+          action: keep    
       extra_write_relabel_configs:
         - source_labels: [__name__]
           regex: 'nginx_ingress_controller_config.*'
@@ -49,9 +53,7 @@ newrelic-prometheus-agent:
 #          target_label: env
 #          action: replace
 #          replacement: prod  
-#        - source_labels: [__meta_kubernetes_namespace]
-#          action: keep
-#          regex: nginx-ingress
+
           
 newrelic-k8s-metrics-adapter:
   # newrelic-k8s-metrics-adapter.enabled -- Install the [`newrelic-k8s-metrics-adapter.` chart](https://github.com/newrelic/newrelic-k8s-metrics-adapter/tree/main/charts/newrelic-k8s-metrics-adapter) (Beta)
