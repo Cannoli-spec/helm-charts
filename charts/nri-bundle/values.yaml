@@ -8,7 +8,7 @@ nri-prometheus:
 
 nri-metadata-injection:
   # nri-metadata-injection.enabled -- Install the [`nri-metadata-injection` chart](https://github.com/newrelic/k8s-metadata-injection/tree/main/charts/nri-metadata-injection)
-  enabled: false
+  enabled: true
 
 kube-state-metrics:
   # kube-state-metrics.enabled -- Install the [`kube-state-metrics` chart](https://github.com/kubernetes/kube-state-metrics/tree/master/charts/kube-state-metrics) from the stable helm charts repository.
@@ -40,10 +40,6 @@ newrelic-prometheus-agent:
   enabled: true
   config:
     newrelic_remote_write:
-      extra_metric_relabel_config:
-        - source_labels: [__meta_kubernetes_namespace]
-          regex: nginx-ingress
-          action: keep    
       extra_write_relabel_configs:
         - source_labels: [__name__]
           regex: 'nginx_ingress_controller_config.*'
@@ -52,7 +48,10 @@ newrelic-prometheus-agent:
 #          regex: 'prometheus.*'
 #          target_label: env
 #          action: replace
-#          replacement: prod  
+#          replacement: prod
+#        - source_labels: [__meta_kubernetes_namespace]
+#          regex: nginx-ingress
+#          action: keep
 
           
 newrelic-k8s-metrics-adapter:
